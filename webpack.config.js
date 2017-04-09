@@ -15,9 +15,13 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.js$/,
-      loaders: ['react-hot', 'babel'],
-      include: path.join(__dirname, 'src')
+        test: /\.(jsx|js)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+            presets: ['react', 'es2015']
+        },
+        include: path.join(__dirname, 'src')
     }]
   },
   plugins: [
