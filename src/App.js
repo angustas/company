@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
-import { Switch } from 'antd';
-import { Input } from 'antd';
-
-// ReactDOM.render(<Input placeholder="Basic usage" />, mountNode);
-function onChange(checked) {
-    console.log(`switch to ${checked}`);
-}
+import { Input,message } from 'antd';
+import { hashHistory } from 'react-router';
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {display: "none"};
+        this.successmessage = this.successmessage.bind(this);
+        this.errormessage = this.errormessage.bind(this);
+    };
+    errormessage(msg){
+        message.error(msg);
+    };
+    successmessage(msg){
+        message.success(msg);
+    };
+    toLogin(){
+        hashHistory.push('/login');
+    };
+    toReg(){
+        hashHistory.push('/reg');
+    };
+
     render() {
     return (
-    <div className="loginContainer">
+    <div className="bodyContainer">
         <nav>
-            <div class="logo"><a href="localhost:3000/#/index">AURORA OA</a></div>
-            <ul class="navUl">
-                <li class="navList">首页</li>
-                <li class="navList">关于产品</li>
-                <li class="navList">服务</li>
-                <li class="navList">联系</li>
-                <li class="navList">注册／登陆</li>
+            <div className="logo"><a href="localhost:3000/#/index">AURORA OA</a></div>
+            <ul className="navUl">
+                <li className="navList">首页</li>
+                <li className="navList">关于产品</li>
+                <li className="navList">服务</li>
+                <li className="navList">联系</li>
+            </ul>
+            <ul className="loginNav">
+                <li className="navList" onClick={this.toLogin}>登录</li>
+                <li className="navList" onClick={this.toReg}>注册</li>
             </ul>
         </nav>
-      <Switch defaultChecked={true} onChange={onChange} />
-      <h1>首页1</h1>
-      <Input placeholder="Basic usage" />
     </div>
     );
   };
