@@ -46,6 +46,11 @@ export default class Login extends Component {
             .then(function (list) {
                 if(list.status=="OK"){
                     message.success("登录成功～");
+                    localStorage.setItem("name",list.data.user_info.name);
+                    localStorage.setItem("user_id",list.data.user_info.user_id);
+                    localStorage.setItem("is_admin",list.data.user_info.is_admin);
+                    localStorage.setItem("company_id",list.data.company_info.company_id);
+                    console.log("姓名："+localStorage.getItem("name"));
                     hashHistory.push('/index');//跳转主页
                 }else if(list.status=="error"){
                     message.error("您输入的账号或者密码错误，请重新输入～");
@@ -53,7 +58,6 @@ export default class Login extends Component {
         });
     };
     onSubmit(){
-
         let email=$("#name").val();
         let pwd=$("#pwd").val();
         if(email==""){

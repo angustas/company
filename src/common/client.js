@@ -1,6 +1,3 @@
-/**
- * Created by wuping on 2017/4/15.
- */
 import $ from 'jquery';
 
 /**

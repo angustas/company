@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import Sidebar from './common/sidebar';
 import $ from 'jquery';
-import { Icon,Card,Popover} from 'antd';
+import { Icon,Card,message,Pagination} from 'antd';
 import { hashHistory } from 'react-router';
 export default class DynamicState extends Component {
     constructor(props) {
         super(props);
         this.state = {display: "none",visible: false};
-
+        this.post = this.post.bind(this);
+        this.fetchDynamic = this.fetchDynamic.bind(this);
+        this.fetchDynamic();
     };
+
     toDaily(){
         hashHistory.push('/daily');
     };
@@ -18,74 +21,72 @@ export default class DynamicState extends Component {
     toWorkBoard(){
         hashHistory.push('/index');
     };
+    toTeam(){
+        hashHistory.push('/team');
+    };
+    post(url,res,callback){//公用API
+        this.setState({loading:true});
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: res
+        })
+            .then(function(response) {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(function (list) {
+                if(list.status=="OK"){
+                    this.setState({loading:false});
+                    callback(list);
+                }else if(list.status=="error"){
+                    message.error("系统繁忙～");
+                }
+            }.bind(this));
+    };
+    fetchDynamic(){
+        let url="//localhost/companyBACK/welcome/GetDynamic";
+        let user_id=localStorage.getItem("user_id");
+        this.post(url,"user_id="+user_id,function(list){
+            var dynamic=list.data.map(function(m){
+                return (
+                    <div className="cardContainer" key={Math.random()}>
+                        <Card>
+                            <div className="chargeName">{localStorage.getItem("name")}</div>
+                            <div className="detail">
+                                <h5 className="detailName">{m.dynamic_detail}</h5>
+                                <p className="detailProject">{m.task_name}</p>
+                                <span className="date">{m.time}</span>
+                            </div>
+                        </Card>
+                    </div>
+                );
+            });
+            this.setState({dynamic:dynamic});
+        }.bind(this));
+    };
     render() {
-        const content = (
-            <div>
-                <p>部门：后市场</p>
-                <p>职位：前端工程师</p>
-                <p>手机：18945073710</p>
-            </div>
-        );
+
         return (
             <div className="missionContainer">
                 <Sidebar target="index"/>
                 <nav className="missionBoard">
+                    <h2><Icon type="star-o" />&nbsp;动态</h2>
                     <ul className="navUl">
                         <li className="" onClick={this.toWorkBoard}>任务</li>
                         <li className="" onClick={this.toDaily}>日历</li>
                         <li className="selected" onClick={this.toDynamicState}>动态</li>
+                        <li className="" onClick={this.toTeam}>团队</li>
                     </ul>
 
                 </nav>
                 <div className="missionList">
-                    <div className="cardContainer">
-                        <Card>
-                            <Popover content={content} title="张三" trigger="hover">
-                                <div className="chargeName">张三</div>
-                            </Popover>
-                            <div className="detail">
-                                <h5>完成了任务</h5>
-                                <p>车生活</p>
-                                <span className="date">2017.04.16 07:49</span>
-                            </div>
-                        </Card>
-                    </div>
-                    <div className="cardContainer">
-                        <Card>
-                            <Popover content={content} title="张三" trigger="hover" style={{textAlign:'center'}}>
-                                <div className="chargeName">张三</div>
-                            </Popover>
-                            <div className="detail">
-                                <h5>更新了任务</h5>
-                                <p>组件库</p>
-                                <span className="date">2017.04.16 07:49</span>
-                            </div>
-                        </Card>
-                    </div>
-                    <div className="cardContainer">
-                        <Card>
-                            <Popover content={content} title="张三" trigger="hover" style={{textAlign:'center'}}>
-                                <div className="chargeName">张三</div>
-                            </Popover>
-                            <div className="detail">
-                                <h5>上传了文件</h5>
-                                <p>组件库</p>
-                                <span className="date">2017.04.16 07:49</span>
-                            </div>
-                        </Card>
-                    </div>
-                    <div className="cardContainer">
-                        <Card>
-                            <Popover content={content} title="张三" trigger="hover" style={{textAlign:'center'}}>
-                                <div className="chargeName">张三</div>
-                            </Popover>
-                            <div className="detail">
-                                <h5>上传了文件</h5>
-                                <p>组件库</p>
-                                <span className="date">2017.04.15 08:49</span>
-                            </div>
-                        </Card>
-                    </div>
+                    {this.state.dynamic}
+                    <div className="pageList"><Pagination simple defaultCurrent={2} total={50} /></div>
                 </div>
 
 

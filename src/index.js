@@ -8,8 +8,14 @@ import Daily from './daily.js';
 import DynamicState from './dynamicState.js';
 import Search from './search.js';
 import Message from './message.js';
-import Project from './project.js';
 import Setting from './setting.js';
+import MailList from './mailList.js';
+import File from './file.js';
+import Statistics from './statistics.js';
+import Security from './security.js';
+import Team from './team.js';
+import CompanySetting from './companySetting.js';
+import Account from './account.js';
 import { Router,Route, hashHistory} from 'react-router';
 render((
     <Router history={hashHistory}>
@@ -22,7 +28,13 @@ render((
         <Route path="/dynamicState" component={DynamicState}/>
         <Route path="/search" component={Search}/>
         <Route path="/message" component={Message}/>
-        <Route path="/project" component={Project}/>
         <Route path="/setting" component={Setting}/>
+        <Route path="/mailList" component={MailList}/>
+        <Route path="/file" component={File}/>
+        <Route path="/statistics" component={Statistics}/>
+        <Route path="/security" component={Security}/>
+        <Route path="/team" component={Team}/>
+        <Route path="/companySetting" component={CompanySetting}/>
+        <Route path="/account" component={Account}/>
     </Router>
 ),document.getElementById('app')); 

@@ -1,6 +1,3 @@
-/**
- * Created by wuping on 2017/4/9.
- */
 import React, { Component } from 'react';
 import { Input,Button,message } from 'antd';
 import { hashHistory } from 'react-router';
@@ -26,8 +23,8 @@ export default class Reg extends Component {
     successmessage(msg){
         message.success(msg);
     };
-    searchApi(email,pwd){
-        fetch('//localhost/companyBACK/welcome/Reg?email='+email+'&pwd='+pwd,
+    searchApi(name,email,pwd){
+        fetch('//localhost/companyBACK/welcome/Reg?email='+email+'&pwd='+pwd+'&name='+name,
             {
                 method: "GET",
                 headers: {
@@ -53,7 +50,11 @@ export default class Reg extends Component {
         let email=$("#email").val();
         let pwd1=$("#pwd1").val();
         let pwd2=$("#pwd2").val();
-        if(email==""){
+        let name=$("#name").val();
+        if(name==""){
+            this.errormessage("姓名不能为空～");
+            return false;
+        }else if(email==""){
             this.errormessage("邮箱不能为空～");
             return false;
         }else if(pwd1==""){
@@ -64,7 +65,7 @@ export default class Reg extends Component {
             message.error("两次输入的密码不一致，请核对后重新输入～");
             return false;
         }else{
-            this.searchApi(email,pwd1);
+            this.searchApi(name,email,pwd1);
         }
 
     }
@@ -76,6 +77,7 @@ export default class Reg extends Component {
             <div className="loginContainer">
                 <div className="formContainer">
                     <h1>AURORA OA</h1>
+                    <Input placeholder="请填写姓名～" className="input" id="name"/>
                     <Input placeholder="请填写邮箱～" className="input" id="email"/>
                     <Input placeholder="请填写密码～" type="password" className="input" id="pwd1"/>
                     <Input placeholder="请再次填写密码～" type="password" className="input" id="pwd2"/>

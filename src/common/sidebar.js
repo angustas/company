@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Icon,Popover} from 'antd';
+import { Icon,Popover,message} from 'antd';
 import { hashHistory } from 'react-router';
 export default class Sidebar extends Component {
     constructor(props) {
@@ -9,10 +9,22 @@ export default class Sidebar extends Component {
         this.state = {display: "none",visible: false};
         this.toJump = this.toJump.bind(this);
         this.changeSideBar = this.changeSideBar.bind(this);
+        this.checkHasLogin = this.checkHasLogin.bind(this);
+        this.checkHasLogin();
     };
     componentDidMount(){
         this.changeSideBar(this.props.target);
     }
+    checkHasLogin(){
+        if(!localStorage.getItem("name")){
+            this.warnmessage("您还没有登录，请先登录～");
+            hashHistory.push('/login');
+        }
+    };
+
+    warnmessage(msg){
+        message.warning(msg);
+    };
     changeSideBar(tag){
         switch (tag){
             case "search":
@@ -21,14 +33,13 @@ export default class Sidebar extends Component {
             case "index":
                 $(".aboutMenu").addClass("selected");
                 break;
-            case "project":
-                $(".projectMenu").addClass("selected");
+            case "statistics":
+                $(".statisticsMenu").addClass("selected");
                 break;
             case "message":
                 $(".messageMenu").addClass("selected");
                 break;
         }
-        console.log("aaa:"+tag);
     };
     toJump(e){
         let target=$(e.target).data("target");
@@ -40,8 +51,8 @@ export default class Sidebar extends Component {
             case "about":
                 hashHistory.push('/index');
                 break;
-            case "project":
-                hashHistory.push('/project');
+            case "statistics":
+                hashHistory.push('/statistics');
                 break;
             case "message":
                 hashHistory.push('/message');
@@ -50,6 +61,7 @@ export default class Sidebar extends Component {
                 hashHistory.push('/setting');
                 break;
             case "logout":
+                localStorage.clear();
                 hashHistory.push('/introduce');
                 break;
         }
@@ -72,11 +84,11 @@ export default class Sidebar extends Component {
                     <li data-target="about" className="aboutMenu">我的</li>
                     <li data-target="search" className="searchMenu">搜索</li>
                     <li data-target="message" className="messageMenu">消息</li>
-                    <li data-target="project" className="projectMenu">项目</li>
+                    <li data-target="statistics" className="statisticsMenu">统计</li>
                 </ul>
                 <ul className="userCenter">
                     <Popover placement="rightBottom" title="个人中心" content={content} trigger="click">
-                        <li>吴平</li>
+                        <li>{localStorage.getItem("name")}</li>
                     </Popover>
 
                 </ul>
