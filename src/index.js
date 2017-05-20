@@ -10,7 +10,7 @@ import Search from './search.js';
 import Message from './message.js';
 import Setting from './setting.js';
 import MailList from './mailList.js';
-import File from './file.js';
+import Table from './table.js';
 import Statistics from './statistics.js';
 import Security from './security.js';
 import Team from './team.js';
@@ -30,7 +30,7 @@ render((
         <Route path="/message" component={Message}/>
         <Route path="/setting" component={Setting}/>
         <Route path="/mailList" component={MailList}/>
-        <Route path="/file" component={File}/>
+        <Route path="/table" component={Table}/>
         <Route path="/statistics" component={Statistics}/>
         <Route path="/security" component={Security}/>
         <Route path="/team" component={Team}/>

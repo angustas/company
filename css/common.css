@@ -5,7 +5,7 @@
 nav{
     width: 100%;
     height: 60px;
-    background: rgba(0,139,139,1);
+    background: rgba(51,51,51,.95);
 }
 .logo{
     width: 200px;
@@ -21,6 +21,11 @@ nav{
     text-decoration: none;
     font-size: 18px;
     color:#fff;
+}
+body{
+    background-image: url(../img/banner-bg.png);
+    background-repeat: repeat;
+    background-size:101% 100%;
 }
 .navUl{
     width: 60%;
@@ -39,9 +44,9 @@ nav{
     cursor: pointer;
 }
 .loginNav {
-    width: 10%;
+    width: 120px;
     height: 60px;
-    margin-left: 70%;
+    right: 10%;
     line-height: 60px;
     display: inline-block;
     position: absolute;
@@ -52,7 +57,10 @@ nav{
     color:#FFF;
     cursor: pointer;
 }
-
+.showBody{
+    width: 100%;
+    height: 92%;
+}
 ul li.selected{
     color:#20B2AA;
 }
@@ -61,10 +69,10 @@ ul li:hover{
 }
 .loginContainer{
     width: 100%;
-    height: 650px;
+    height: 100%;
     background-image: url(../img/bg.jpg);
     background-repeat: no-repeat;
-    background-size:101% 100%;
+    background-size:101% 101%;
 }
 .formContainer{
     width: 40%;
@@ -145,16 +153,19 @@ ul li:hover{
     cursor: pointer;
 }
 .sidebar{
-    width: 5%;
+    width: 66px;
     height: 100%;
     display: inline-block;
     background: rgba(0,0,0,0.7);
     position: fixed;
 }
+#app{
+    height: 100%;
+}
 .bodyContainer{
     width: 100%;
-    height: 650px;
-    background: #f8f6f2;
+    height: 100%;
+    /*background: #f8f6f2;*/
     /*background-image: url(../img/banner-bg.png);*/
     /*background-repeat: no-repeat;*/
     /*background-size:101% 100%;*/
@@ -220,9 +231,10 @@ ul li:hover{
     width: 95%;
     height: 60px;
     display: inline-block;
-    position: absolute;
-    margin-left: 5%;
-    top:0;
+    position: fixed;
+    margin-left: 66px;
+    top: 0;
+    z-index: 999;
     background: rgba(255,255,255,1);
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
@@ -241,9 +253,7 @@ ul li:hover{
     width: 100%;
     height: 650px;
     /*background: #f8f6f2;*/
-    background-image: url(../img/banner-bg.png);
-    background-repeat: repeat;
-    background-size:101% 100%;
+
 }
 .newMission{
     width: 20%;
@@ -263,19 +273,19 @@ ul li:hover{
 }
 .missionList{
     width: 93%;
-    margin-left: 6%;
+    margin-left: 75px;
     height: auto;
     position: absolute;
     top:70px;
-    box-shadow: -10px 13px 5px #888888;
+    box-shadow: -10px 13px 10px rgba(0,0,0,0.7);
     background: rgba(255,255,255,1);
     border-top: 1px solid rgba(0,0,0,0.1);
     transition: all 0.5s;
 }
-.missionList:hover{
-    transform:scale(1.005,1.005);
-    box-shadow: 10px 8px 5px #888888;
-}
+/*.missionList:hover{*/
+    /*transform:scale(1.005,1.005);*/
+    /*box-shadow: 10px 13px 10px rgba(0,0,0,0.7);*/
+/*}*/
 .whoCharge{
     width: 30px;
     height: 30px;
@@ -408,6 +418,7 @@ ul li:hover{
     margin-left: 20%;
     margin-top: 20px;
     color:#ccc;
+    height: 550px;
 }
 .recommend h3{
     color:#000;
@@ -433,7 +444,7 @@ ul li:hover{
     margin-bottom: 20px;
 }
 .messageList{
-    height: 550px;
+    height: 650px;
 }
 .whenNoMessage{
     padding-top: 200px;
@@ -469,7 +480,7 @@ ul li:hover{
 }
 .cardContainer span{
     position: absolute;
-    margin-left: 30%;
+    margin-left: 25%;
     margin-top: 8px;
 }
 .messageTime{
@@ -485,7 +496,7 @@ ul li:hover{
     border-radius: 40px;
     line-height: 40px;
     text-align: center;
-    font-size: 14px;
+    /*font-size: 14px;*/
     background: rgba(72,209,204,0.9);
     color:#fff;
 }
@@ -641,10 +652,186 @@ p.folderName{
 .daily{
     width: 80%;
     background: #FFF;
+    box-shadow: 10px 13px 10px rgba(0,0,0,0.7);
     height: 500px;
     margin-left: 10%;
     position: absolute;
     top:80px;
     border:1px solid #fff;
     border-radius:5px;
+}
+.chartContainer{
+    /*height: 950px;*/
+}
+
+.searchDirect{
+    display: none;
+}
+.searchResult{
+    margin-top: 20px;
+    color:rgba(0,0,0,0.8);
+}
+.carouselDiv{
+    height: 500px;
+    width: 100%;
+    text-align: center;
+    /*background: #473C8B;*/
+}
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 665px;
+    line-height: 333px;
+    color: #fff;
+    overflow: hidden;
+}
+.carousel1{
+    background-image: url(../img/1.jpg);
+    background-repeat: repeat;
+    background-size:101% 100%;
+    /*filter:blur(10px);*/
+    /*-webkit-filter:blur(10px);*/
+}
+.carousel2{
+    background-image: url(../img/2.jpg);
+    background-repeat: repeat;
+    background-size:101% 100%;
+    /*filter:blur(10px);*/
+    /*-webkit-filter:blur(10px);*/
+}
+.carousel3{
+    background-image: url(../img/3.jpg);
+    background-repeat: repeat;
+    background-size:101% 100%;
+    /*filter:blur(10px);*/
+    /*-webkit-filter:blur(10px);*/
+}
+.carousel4{
+    background-image: url(../img/4.jpg);
+    background-repeat: repeat;
+    background-size:101% 100%;
+    /*filter:blur(10px);*/
+    /*-webkit-filter:blur(10px);*/
+}
+.detailBody{
+    position: absolute;
+    top:60px;
+}
+.introduce{
+    width: 100%;
+    height: 60%;
+    top: 20%;
+    text-align: center;
+    color:#8B0A50;
+}
+.introduce2{
+    color:#fff;
+}
+.introduce4{
+color:#000;
+}
+.afterClickLater{
+    width:50%;
+}
+.messageDetail{
+    width: 42%;
+    /*height: 100%;*/
+    background: #fff;
+    position: fixed;
+    right: 0;
+    top: 70px;
+    display: none;
+    max-height: 650px;
+    overflow: auto;
+}
+.messageDetail h3{
+    width: 50%;
+    display: inline-block;
+}
+.messageDetail .toogleRight{
+    position: absolute;
+    right:20px;
+}
+.move{
+    display: block;
+    animation:mymove 0.6s 1;
+}
+@keyframes mymove
+{
+    from {right:-50%;}
+    to {right:0;}
+}
+.messageListTaskName{
+    display: inline-block;
+    margin-left: 20px;
+}
+.messageListUserName{
+    margin-left: 15%;
+}
+.mailListDepartment{
+    display: inline-block;
+    margin-left: 10%;
+}
+.mailListName{
+     display: inline-block;
+ }
+.mailjobType{
+    margin-left: 30px;
+}
+.mailtel{
+    margin-left: 30px;
+}
+#yuan{
+    position: relative;
+}
+.tongjiBody{
+    width: 80%;
+    margin-left: 10%;
+    /*border:1px solid #ccc;*/
+    height: 100px;
+    text-align: center;
+    /*line-height: 100px;*/
+}
+.ant-row {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+.ant-row > div {
+    margin: 2px 20px;
+    /*box-shadow: 10px 13px 15px rgba(0,0,0,0.2);*/
+    border-radius:3px;
+}
+.process a{
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 28px;
+    margin-left: 5px;
+    margin-top: 5px;
+    display:inline-block;
+    color:#00B2EE;
+    transition: all 0.5s;
+
+}
+.process a:hover{
+    box-shadow: 3px 4px 5px 2px rgba(0,0,0,0.2);
+}
+.process a span{
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+}
+.process a .finish{
+    color:#20B2AA;
+}
+.process a .notyet{
+    color:#EEC900;
+}
+.process a .delay{
+    color:#FF7256;
+}
+.tongjiBody span{
+    display: inline-block;
+    color:#79CDCD;
+    margin-top: 5px;
 }

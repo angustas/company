@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './common/sidebar';
 import $ from 'jquery';
-import { Icon,Card,Input,Button,message,Modal,Tooltip,Tag} from 'antd';
+import { Icon,Card,Input,Button,message,Modal,Table,Tag} from 'antd';
 import { hashHistory } from 'react-router';
 export default class Account extends Component {
     constructor(props) {
@@ -17,6 +17,12 @@ export default class Account extends Component {
         this.showModal = this.showModal.bind(this);
         this.submitAccount = this.submitAccount.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.fetchAccount = this.fetchAccount.bind(this);
+        this.post = this.post.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    };
+    componentDidMount(){
+        this.fetchAccount();
     };
     toSecurity(){
         hashHistory.push('/security');
@@ -40,6 +46,50 @@ export default class Account extends Component {
         this.setState({
             visible: true,
         });
+    };
+    fetchAccount(){
+        let url="//localhost/companyBACK/welcome/GetAccount";
+        let user_id=localStorage.getItem("user_id");
+        let company_id=localStorage.getItem("company_id");
+        this.post(url,"company_id="+company_id,function(list){
+            let a=[];
+            for(let i=0;i<list.data.length;i++){
+                let b={
+                    key: list.data[i].user_id,
+                    name: list.data[i].name,
+                    account: list.data[i].email,
+                    password: list.data[i].password,
+                    id:list.data[i].user_id
+                };
+                a.push(b);
+            }
+            console.log(a);
+            this.setState({account:a});
+        }.bind(this));
+    };
+    post(url,res,callback){//公用API
+        this.setState({loading:true});
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: res
+        })
+            .then(function(response) {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(function (list) {
+                if(list.status=="OK"){
+                    this.setState({loading:false});
+                    callback(list);
+                }else if(list.status=="error"){
+                    message.error("系统繁忙～");
+                }
+            }.bind(this));
     };
     submitAccount () {
         var account=$(".account").val();
@@ -84,6 +134,18 @@ export default class Account extends Component {
             show: false
         });
     };
+    onDelete(e){
+        var user_id=$(e.target).data("id");
+        let url="//localhost/companyBACK/welcome/DeleteAccount";
+        // let company_id=localStorage.getItem("company_id");
+        this.post(url,"user_id="+user_id,function(list){
+           if(list.status=="OK"){
+              message.success("注销成功～");
+              this.fetchAccount();
+           }
+        }.bind(this));
+        console.log(user_id);
+    };
     editPassword(){
         this.successmessage("修改成功～");
     };
@@ -98,6 +160,33 @@ export default class Account extends Component {
             {value: 1, name: "是"},
             {value: 2, name: "否"}
         ];
+        const dataSource = this.state.account;
+
+        const columns = [{
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name',
+            render: text => <a href="javascript:void(0);">{text}</a>,
+        }, {
+            title: '账号',
+            dataIndex: 'account',
+            key: 'account',
+        }, {
+            title: '密码',
+            dataIndex: 'password',
+            key: 'password',
+        }, {
+            title: '操作',
+            dataIndex:"id",
+            key: 'id',
+            render: text => (
+                <span>
+                  <span className="ant-divider" />
+                  <a  href="javascript:void(0);" data-id={text} onClick={this.onDelete}>注销</a>
+                  <span className="ant-divider" />
+                </span>
+            ),
+        }];
         if(localStorage.getItem("is_admin")=="true"){
             var list= <li className="" onClick={this.toAccount}>分配账号</li>
         }else{
@@ -121,6 +210,8 @@ export default class Account extends Component {
                     </ul>
                 </nav>
                 <div className="missionList">
+                    <Table dataSource={dataSource} columns={columns} />
+
                     <Modal title="分配账号" visible={this.state.visible}
                            onOk={this.submitAccount} onCancel={this.handleCancel}
                            okText="确认" cancelText="取消"

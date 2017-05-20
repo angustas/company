@@ -36,12 +36,18 @@ export default class Security extends Component {
         message.success(msg);
     };
     editPassword(){
-        this.successmessage("修改成功～");
+        $(".materialShow").hide();
+        $(".material").show();
+        // this.successmessage("修改成功～");
     };
     savePassword(){
+        $(".materialShow").show();
+        $(".material").hide();
         this.successmessage("保存成功～");
     };
     cancelSave(){
+        $(".materialShow").show();
+        $(".material").hide();
         this.successmessage("保存成功～");
     };
     render() {

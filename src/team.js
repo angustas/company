@@ -287,7 +287,7 @@ export default class Team extends Component {
                             <Input className="teamName"/>
                         </FormItem>
                         <FormItem label="生成邀请码">
-                            <Input className="InvitationCode" placeholder="生成邀请码" style={{width:340}}/>
+                            <Input className="InvitationCode" placeholder="生成邀请码" style={{width:300}}/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button type="primary" onClick={this.createInvitationCode} >生成邀请码</Button>
                         </FormItem>

@@ -102,8 +102,10 @@ export default class WorkBoard extends Component {
             })
             .then(function (list) {
                 if(list.status=="OK"){
-                    this.setState({loading:false});
-                    callback(list);
+                    setTimeout(function(){
+                        this.setState({loading:false});
+                        callback(list);
+                    }.bind(this),1000);
                 }else if(list.status=="error"){
                     message.error("系统繁忙～");
                 }
@@ -232,8 +234,9 @@ export default class WorkBoard extends Component {
             }.bind(this));
     };
     createTask(taskInfo){
+        let companyId=localStorage.getItem("company_id");
         fetch('//localhost/companyBACK/welcome/createTask?taskName='+taskInfo.taskName+'&urgencyLevel='+taskInfo.urgencyLevel+'&taskDetail='+taskInfo.taskDetail
-            +'&taskRemarks='+taskInfo.taskRemarks+'&user='+taskInfo.user,
+            +'&taskRemarks='+taskInfo.taskRemarks+'&user='+taskInfo.user+'&company_id='+companyId,
             {
                 method: "GET",
                 headers: {
@@ -249,6 +252,7 @@ export default class WorkBoard extends Component {
             .then(function (list) {
                 if(list.status=="OK"){
                     message.success("创建成功～");
+                    this.findTaskList();
                 }else if(list.status=="error"){
                     message.error("系统繁忙～");
                 }
@@ -375,9 +379,10 @@ export default class WorkBoard extends Component {
         let task_id=this.state.task_id;
         let url="//localhost/companyBACK/welcome/AddRemark";
         let user_id=localStorage.getItem("user_id");
+        let company_id=localStorage.getItem("company_id");
         var byWho=localStorage.getItem("name");
         if(comment){
-            this.post(url,"remark_detail="+comment+"&task_id="+task_id+"&user_id="+user_id,function(list){
+            this.post(url,"remark_detail="+comment+"&task_id="+task_id+"&user_id="+user_id+"&company_id="+company_id,function(list){
                 if(list.status=="OK"){
                     var html="<p><a>"+byWho+"</a>:&nbsp;&nbsp;&nbsp;"+list.data.remark_detail+"<a data-remark="+list.data.remark_id+" onClick="+this.deleteRemark+" className='operate'>&nbsp;删除</a></p>";
                     message.success("评论成功～");

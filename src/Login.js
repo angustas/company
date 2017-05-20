@@ -77,7 +77,7 @@ export default class Login extends Component {
                 <div className="formContainer">
                     <h1>AURORA OA</h1>
                     <Input placeholder="请填写用户名～" className="input" id="name"/>
-                    <Input placeholder="请填写密码～" className="input" id="pwd"/>
+                    <Input placeholder="请填写密码～" className="input" type="password" id="pwd"/>
                     <Button className="button" onClick={this.onSubmit}>登录</Button>
                 <div className="toReg" onClick={this.onClick}>
                     <span>还没有账号？</span>
