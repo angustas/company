@@ -107,7 +107,7 @@ export default class WorkBoard extends Component {
                         callback(list);
                     }.bind(this),1000);
                 }else if(list.status=="error"){
-                    message.error("系统繁忙～");
+                    message.error("系统繁忙！！！～");
                 }
             }.bind(this));
     };

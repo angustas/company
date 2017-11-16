@@ -49,6 +49,7 @@ export default class Login extends Component {
                     localStorage.setItem("name",list.data.user_info.name);
                     localStorage.setItem("user_id",list.data.user_info.user_id);
                     localStorage.setItem("is_admin",list.data.user_info.is_admin);
+                    localStorage.setItem("oldPwd",list.data.user_info.password);
                     localStorage.setItem("company_id",list.data.company_info.company_id);
                     console.log("姓名："+localStorage.getItem("name"));
                     hashHistory.push('/index');//跳转主页
